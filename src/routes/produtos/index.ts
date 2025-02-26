@@ -16,4 +16,27 @@ router.post('/', async (req, res) => {
   res.status(201).send()
 })
 
+router.put('/:codigo', async (req, res) => {
+  const { nome, preco } = req.body
+  const { codigo } = req.params
+  if (!codigo) {
+    res.status(204).send()
+  }
+  const produto = await repo.update({
+    nome,
+    preco,
+    codigo
+  } as IProduto)
+  res.status(200).send(produto)
+})
+
+router.delete('/:codigo', async (req, res) => {
+  const { codigo } = req.params
+  if (!codigo) {
+    res.status(204).send()
+  }
+  await repo.delete(codigo)
+  res.status(200).send()
+})
+
 export default router

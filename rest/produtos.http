@@ -1,3 +1,6 @@
+GET http://localhost:8080/produtos
+
+###
 POST http://localhost:8080/produtos
 Content-Type: application/json
 
@@ -6,6 +9,14 @@ Content-Type: application/json
   "preco": 2.99
 }
 
+###
+PUT http://localhost:8080/produtos/5ae8137d-b4a6-4a4b-abeb-32f82d7ac8cb
+Content-Type: application/json
+
+{
+  "nome": "Caneca de Cerveja",
+  "preco": 10.99
+}
 
 ###
-GET http://localhost:8080/produtos
+DELETE http://localhost:8080/produtos/efa84fc5-a1da-4950-a9b6-2b99f91e965d
