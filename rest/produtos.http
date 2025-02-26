@@ -5,8 +5,8 @@ POST http://localhost:8080/produtos
 Content-Type: application/json
 
 {
-  "nome": "Xicara de Cafe",
-  "preco": 2.99
+  "nome": "Mesa de Madeira 8 Lugares",
+  "preco": 15999.99
 }
 
 ###
