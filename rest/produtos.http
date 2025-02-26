@@ -1,0 +1,11 @@
+POST http://localhost:8080/produtos
+Content-Type: application/json
+
+{
+  "nome": "Xicara de Cafe",
+  "preco": 2.99
+}
+
+
+###
+GET http://localhost:8080/produtos
