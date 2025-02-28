@@ -18,10 +18,10 @@ class ProdutosRepository {
       { codigo: produto.codigo },
       { $set: { nome, preco } }
     )
-    const updatedDocument = (await this.produtos.findOne({
+    const updateProduto = (await this.produtos.findOne({
       codigo: produto.codigo
     })) as IProduto
-    return updatedDocument
+    return updateProduto
   }
 
   async delete(codigo: string): Promise<void> {

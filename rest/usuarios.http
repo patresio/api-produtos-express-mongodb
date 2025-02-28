@@ -1,0 +1,17 @@
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "ricardo",
+  "email": "ricardo@mail.com",
+  "senha": "abc" 
+}
+
+###
+POST http://localhost:8080/usuarios/c61a94f2-7f72-4332-a722-98946b3571ed
+Content-Type: application/json
+
+{
+  "nome": "ricardo",
+  "senha": "rocks123"
+}
