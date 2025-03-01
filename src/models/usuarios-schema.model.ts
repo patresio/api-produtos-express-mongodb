@@ -1,43 +1,57 @@
-import { Document, model, Schema } from 'mongoose'
-import Id from '../shared/utils/Id'
-import Password from '../shared/utils/Password'
+import bcrypt from 'bcrypt'
+import mongoose from 'mongoose'
 
-interface IUsuario extends Document {
-  codigo: string
-  nome: string
+export interface IUsuario extends mongoose.Document {
   email: string
-  senha: string
+  fullName: string
+  password: string
+  token?: string
+  createdAt: Date
+  updatedAt: Date
+  comparePassword(password: string): Promise<boolean>
 }
 
-const usuarioSchema = new Schema<IUsuario>({
-  codigo: {
-    type: String,
-    required: true,
-    unique: true,
-    default: () => Id.novo()
+const UsuarioSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+
+    fullName: {
+      type: String,
+      required: true
+    },
+
+    password: {
+      type: String,
+      required: true
+    }
   },
-  nome: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  senha: {
-    type: String,
-    required: true
+  {
+    timestamps: true
   }
+)
+
+UsuarioSchema.pre('save', async function (this: IUsuario, next) {
+  const usuario = this as IUsuario
+
+  if (!usuario.isModified('password')) return next()
+
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(usuario.password, salt)
+
+  usuario.password = hash
+
+  return next()
 })
 
-usuarioSchema.pre('save', function (next) {
-  if (this.isModified('senha')) {
-    this.senha = Password.hash(this.senha)
-  }
-  next()
-})
+UsuarioSchema.methods.comparePassword = async function (password: string) {
+  const usuario = this as IUsuario
+  return bcrypt.compareSync(password, usuario.password)
+}
 
-const Usuarios = model<IUsuario>('Usuario', usuarioSchema)
+const Usuario = mongoose.model<IUsuario>('Usuario', UsuarioSchema)
 
-export { IUsuario, Usuarios }
+export default Usuario

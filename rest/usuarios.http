@@ -1,17 +1,22 @@
-POST http://localhost:8080/usuarios
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "nome": "ricardo",
-  "email": "ricardo@mail.com",
-  "senha": "abc" 
+  "email": "teste2@teste.com",
+  "fullName": "Teste2 Teste",
+  "password": "1234561"
 }
 
+
 ###
-POST http://localhost:8080/usuarios/c61a94f2-7f72-4332-a722-98946b3571ed
+GET http://localhost:8080/api/auth
+
+
+###
+POST http://localhost:8080/api/auth
 Content-Type: application/json
 
 {
-  "nome": "ricardo",
-  "senha": "rocks123"
+  "email": "teste2@teste.com",
+  "password": "1234561"
 }
